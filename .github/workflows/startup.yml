@@ -1,9 +1,7 @@
 name: Create the main structure for the project, once.
-runs-on: self-hosted
 
 on:
-  schedule:
-    - cron: '0 0 * * 0'
+  workflow_dispatch:
 
 jobs:
   build:
