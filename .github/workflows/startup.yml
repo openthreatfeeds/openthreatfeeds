@@ -46,6 +46,7 @@ jobs:
         git push origin main
 
     - name: Commit and push to the side-project
+      uses: actions/checkout@v2
       with:
         repository: 'https://github.com/openthreatfeeds/fortinet-compatible-lists.git'
         token: ${{ secrets.MAIN_PROJECT }}
