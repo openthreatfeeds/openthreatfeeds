@@ -1,4 +1,5 @@
 name: Create the main structure for the project, once.
+runs-on: self-hosted
 
 on:
   schedule:
