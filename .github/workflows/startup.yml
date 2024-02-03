@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout own structure
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
     - name: Create the folder structure
       run: |
         mkdir automated-scripts
@@ -20,16 +25,16 @@ jobs:
     - name: Clone awesome repositories
       uses: actions/checkout@v2
 
-    - name: Clone repository blocklistproject/Lists
-      run: git clone https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
-
-    - name: Clone repository StevenBlack/hosts
-      run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/hosts
-
-    - name: Clone repository StevenBlack/hosts
+    - name: Cloning repository fortinet-compatible-lists...
       run: git clone https://github.com/openthreatfeeds/fortinet-compatible-lists.git projects/fortinet-compatible-lists
 
-    - name: Create the new structure for the project already ceated repository
+    - name: Cloning repository blocklistproject/Lists...
+      run: git clone https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
+
+    - name: Cloning repository StevenBlack/hosts...
+      run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/hosts
+
+    - name: Create the new structure for the main-project
       run: |
         mkdir -p projects/fortinet-compatible-lists/lists/blocklistproject/Lists/
         mkdir -p projects/fortinet-compatible-lists/lists/StevenBlack/hosts/
