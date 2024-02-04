@@ -1,4 +1,5 @@
 name: Create the main structure for the project, once.
+
 on:
   workflow_dispatch:
 
@@ -7,13 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout own structure
-        uses: actions/checkout@v2
+      - name: Checkout main-project
+        uses: actions/checkout@latest
         with:
           depth: 1
 
-      - name: Create the folder structure
+      - name: Create the folder structure for the main-project
         run: |
           mkdir automated-scripts
           echo '# empty file' >> automated-scripts/process-fortinet-compatible-list.py
@@ -21,30 +21,12 @@ jobs:
           mkdir -p repositories/StevenBlack/hosts
           touch repositories/blocklistproject/List/.gitkeep
           touch repositories/StevenBlack/hosts/.gitkeep
-          echo 'projects/' >> .gitignore
+          echo 'projects' >> .gitignore
 
-      - name: Cloning repository fortinet-compatible-lists...
-        uses: actions/clone@last
-        with:
-          repository: https://github.com/openthreatfeeds/fortinet-compatible-lists.git
-          path: projects/fortinet-compatible-lists
-          depth: 1
+      - name: Cloning repository "openthreatfeeds/fortinet-compatible-lists"...
+        run: git clone https://github.com/openthreatfeeds/fortinet-compatible-lists.git projects/fortinet-compatible-lists
 
-      - name: Cloning repository blocklistproject/Lists...
-        uses: actions/clone@last
-        with:
-          repository: https://github.com/blocklistproject/Lists.git
-          path: repositories/blocklistproject/List
-          depth: 1
-
-      - name: Cloning repository StevenBlack/hosts...
-        uses: actions/clone@last
-        with:
-          repository: https://github.com/StevenBlack/hosts.git
-          path: repositories/StevenBlack/hosts
-          depth: 1
-
-      - name: Create the new structure for the main-project
+      - name: Create the folder structure for the side-project
         run: |
           mkdir -p projects/fortinet-compatible-lists/lists/blocklistproject/Lists/
           mkdir -p projects/fortinet-compatible-lists/lists/StevenBlack/hosts/
@@ -52,28 +34,35 @@ jobs:
           touch projects/fortinet-compatible-lists/lists/blocklistproject/Lists/.gitkeep
           touch projects/fortinet-compatible-lists/lists/StevenBlack/hosts/.gitkeep
 
-      - name: Configure git
-        uses: actions/setup-git@latest
+      - name: Commit and push the side-project
+        uses: actions/checkout@latest
         with:
-          email: action@github.com
-          username: "GitHub Action"
+          repository: 'https://github.com/openthreatfeeds/fortinet-compatible-lists.git'
+          token: ${{ secrets.MAIN_PROJECT }}
+          run: |
+            git config --local user.email "actions@github.com"
+            git config --local user.name "GitHub Actions"
+            git add .
+            git commit -m "Automated project initialization with GitHub actions"
+            git push origin main
           working-directory: projects/fortinet-compatible-lists
 
-      - name: Add
-        uses: git/add@latest
-        with:
-          path: ./projects/fortinet-compatible-lists
+      - name: Clone awesome repositories
+        uses: actions/checkout@latest
 
-      - name: Commit
-        uses: git/commit@latest
-        with:
-          message: "Automated project initialization with GitHub actions"
-          working-directory: projects/fortinet-compatible-lists
+      - name: Cloning repository "blocklistproject/Lists"...
+        run: git clone https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
 
-      - name: Push
-        uses: git/push@latest
+      - name: Cloning repository "StevenBlack/hosts"...
+        run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/hosts
+
+      - name: Commit and push changes to the main-project
+        uses: actions/checkout@latest
         with:
-          repository: https://github.com/openthreatfeeds/fortinet-compatible-lists
-          branch: main
-          ref: HEAD
-          working-directory: projects/fortinet-compatible-lists
+          path: /
+          run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add .
+            git commit -m "Automated project initialization with GitHub actions"
+            git push origin main
