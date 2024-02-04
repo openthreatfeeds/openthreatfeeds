@@ -51,16 +51,12 @@ jobs:
         touch projects/fortinet-compatible-lists/lists/StevenBlack/hosts/.gitkeep
 
     - name: Commit and push changes to the main-project
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .
-        git commit -m "Automated project initialization with GitHub actions"
-        git push origin main
 
     - name: Configure git
       uses: actions/setup-git@latest
       with:
+        email: action@github.com
+        username: "GitHub Action"
         working-directory: projects/fortinet-compatible-lists
 
     - name: Add
