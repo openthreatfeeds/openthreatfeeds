@@ -37,7 +37,7 @@ jobs:
       - name: Cloning repository "StevenBlack/hosts"...
         run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/host
 
-      - name: Commit and push the side-project
+      - name: Commit and push the main-project
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
