@@ -14,13 +14,10 @@ jobs:
       - name: Create the folder structure for the main-project
         run: |
           mkdir automated-scripts
-          echo '# empty file' >> automated-scripts/process-fortinet-compatible-list.py
           mkdir -p repositories/blocklistproject/List
           mkdir -p repositories/StevenBlack/hosts
-          touch repositories/blocklistproject/List/.gitkeep
-          touch repositories/StevenBlack/hosts/.gitkeep
           mkdir -p projects/fortinet-compatible-lists
-          touch projects/fortinet-compatible-lists/.gitkeep
+          echo '# empty file' >> automated-scripts/process-fortinet-compatible-list.py
           echo 'projects' >> .gitignore
 
       - name: Cloning repository "openthreatfeeds/fortinet-compatible-lists"...
