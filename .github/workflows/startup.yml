@@ -40,15 +40,14 @@ jobs:
           repository: 'openthreatfeeds/fortinet-compatible-lists'
           token: ${{ secrets.MAIN_PROJECT }}
 
-      - name: Commit and push the side-project
-        uses: actions/checkout@v4
+      - name: Commit and push the side-project  
+        working-directory: projects/fortinet-compatible-lists
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add .
           git commit -m "Automated project initialization with GitHub actions"
           git push origin main
-        working-directory: projects/fortinet-compatible-lists
 
       - name: Clone awesome repositories
         uses: actions/checkout@v4
@@ -65,7 +64,6 @@ jobs:
           path: /
 
       - name: Commit and push the side-project
-        uses: actions/checkout@v4
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
