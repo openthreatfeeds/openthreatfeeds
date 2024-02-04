@@ -40,7 +40,7 @@ jobs:
           repository: 'openthreatfeeds/fortinet-compatible-lists'
           token: ${{ secrets.MAIN_PROJECT }}
 
-      - name: Commit and push the side-project  
+      - name: Commit and push the side-project
         working-directory: projects/fortinet-compatible-lists
         run: |
           git config --local user.email "actions@github.com"
@@ -56,10 +56,9 @@ jobs:
         run: git clone https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
 
       - name: Cloning repository "StevenBlack/hosts"...
-        run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/hosts
-
+        run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/host
       - name: Commit and push changes to the main-project
-        uses: actions/checkout@latest
+        uses: actions/checkout@v4
         with:
           path: /
 
