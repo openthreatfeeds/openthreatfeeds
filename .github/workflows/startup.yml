@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout main-project
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
         with:
           depth: 1
 
@@ -35,7 +35,7 @@ jobs:
           touch projects/fortinet-compatible-lists/lists/StevenBlack/hosts/.gitkeep
 
       - name: Commit and push the side-project
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
         with:
           repository: 'https://github.com/openthreatfeeds/fortinet-compatible-lists.git'
           token: ${{ secrets.MAIN_PROJECT }}
@@ -48,7 +48,7 @@ jobs:
           working-directory: projects/fortinet-compatible-lists
 
       - name: Clone awesome repositories
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: Cloning repository "blocklistproject/Lists"...
         run: git clone https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
@@ -57,7 +57,7 @@ jobs:
         run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/hosts
 
       - name: Commit and push changes to the main-project
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
         with:
           path: /
           run: |
