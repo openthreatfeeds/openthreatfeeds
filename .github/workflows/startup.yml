@@ -34,18 +34,21 @@ jobs:
           touch projects/fortinet-compatible-lists/lists/blocklistproject/Lists/.gitkeep
           touch projects/fortinet-compatible-lists/lists/StevenBlack/hosts/.gitkeep
 
-      - name: Commit and push the side-project
+      - name: Checkout the side-project
         uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/openthreatfeeds/fortinet-compatible-lists.git'
+          repository: 'openthreatfeeds/fortinet-compatible-lists'
           token: ${{ secrets.MAIN_PROJECT }}
-          run: |
-            git config --local user.email "actions@github.com"
-            git config --local user.name "GitHub Actions"
-            git add .
-            git commit -m "Automated project initialization with GitHub actions"
-            git push origin main
-          working-directory: projects/fortinet-compatible-lists
+
+      - name: Commit and push the side-project
+        uses: actions/checkout@v4
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Automated project initialization with GitHub actions"
+          git push origin main
+        working-directory: projects/fortinet-compatible-lists
 
       - name: Clone awesome repositories
         uses: actions/checkout@v4
@@ -57,12 +60,15 @@ jobs:
         run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/hosts
 
       - name: Commit and push changes to the main-project
-        uses: actions/checkout@v4
+        uses: actions/checkout@latest
         with:
           path: /
-          run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add .
-            git commit -m "Automated project initialization with GitHub actions"
-            git push origin main
+
+      - name: Commit and push the side-project
+        uses: actions/checkout@v4
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automated project initialization with GitHub actions"
+          git push origin main
