@@ -18,7 +18,6 @@ jobs:
           mkdir -p repositories/StevenBlack/hosts
           mkdir -p projects/fortinet-compatible-lists
           echo '# empty file' >> automated-scripts/process-fortinet-compatible-list.py
-          echo 'projects' >> .gitignore
 
       - name: Cloning repository "openthreatfeeds/fortinet-compatible-lists"...
         run: git clone https://github.com/openthreatfeeds/fortinet-compatible-lists.git projects/fortinet-compatible-lists
