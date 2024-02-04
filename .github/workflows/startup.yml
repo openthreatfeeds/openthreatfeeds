@@ -14,7 +14,7 @@ jobs:
     - name: Create the folder structure
       run: |
         mkdir automated-scripts
-        touch automated-scripts/process-fortinet-compatible-list.py
+        echo '# empty file' >> automated-scripts/process-fortinet-compatible-list.py
         mkdir -p repositories/blocklistproject/List
         mkdir -p repositories/StevenBlack/hosts
         touch repositories/blocklistproject/List/.gitkeep
