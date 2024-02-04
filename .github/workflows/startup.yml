@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout main-project
         uses: actions/checkout@v4
-        with:
-          depth: 1
 
       - name: Create the folder structure for the main-project
         run: |
@@ -21,50 +19,40 @@ jobs:
           mkdir -p repositories/StevenBlack/hosts
           touch repositories/blocklistproject/List/.gitkeep
           touch repositories/StevenBlack/hosts/.gitkeep
+          mkdir -p projects/fortinet-compatible-lists
+          touch projects/fortinet-compatible-lists/.gitkeep
           echo 'projects' >> .gitignore
 
       - name: Cloning repository "openthreatfeeds/fortinet-compatible-lists"...
         run: git clone https://github.com/openthreatfeeds/fortinet-compatible-lists.git projects/fortinet-compatible-lists
 
       - name: Create the folder structure for the side-project
-        run: |
-          mkdir -p projects/fortinet-compatible-lists/lists/blocklistproject/Lists/
-          mkdir -p projects/fortinet-compatible-lists/lists/StevenBlack/hosts/
-          touch projects/fortinet-compatible-lists/.gitkeep
-          touch projects/fortinet-compatible-lists/lists/blocklistproject/Lists/.gitkeep
-          touch projects/fortinet-compatible-lists/lists/StevenBlack/hosts/.gitkeep
-
-      - name: Checkout the side-project
-        uses: actions/checkout@v4
-        with:
-          repository: 'openthreatfeeds/fortinet-compatible-lists'
-
-      - name: Commit and push the side-project
         working-directory: projects/fortinet-compatible-lists
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Automated project initialization with GitHub actions"
-          git push origin main
-
-      - name: Clone awesome repositories
-        uses: actions/checkout@v4
+          mkdir -p lists/blocklistproject/Lists/
+          mkdir -p lists/StevenBlack/hosts/
+          touch lists/blocklistproject/Lists/.gitkeep
+          touch lists/StevenBlack/hosts/.gitkeep
 
       - name: Cloning repository "blocklistproject/Lists"...
         run: git clone https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
 
       - name: Cloning repository "StevenBlack/hosts"...
         run: git clone https://github.com/StevenBlack/hosts.git repositories/StevenBlack/host
-      - name: Commit and push changes to the main-project
-        uses: actions/checkout@v4
-        with:
-          path: /
 
       - name: Commit and push the side-project
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automated project initialization with GitHub actions"
+          git push origin main
+        
+      - name: Commit and push the side-project
+        working-directory: projects/fortinet-compatible-lists
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add .
           git commit -m "Automated project initialization with GitHub actions"
           git push origin main
