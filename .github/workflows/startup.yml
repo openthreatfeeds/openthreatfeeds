@@ -39,17 +39,23 @@ jobs:
 
       - name: Commit and push the main-project
         run: |
+          git submodule add https://github.com/blocklistproject/Lists.git repositories/blocklistproject/List
+          git submodule add https://github.com/StevenBlack/hosts.git repositories/StevenBlack/host
+          git submodule add https://github.com/openthreatfeeds/fortinet-compatible-lists.git projects/fortinet-compatible-lists
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "Automated project initialization with GitHub actions"
           git push origin main
-        
+
       - name: Commit and push the side-project
-        working-directory: projects/fortinet-compatible-lists
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Automated project initialization with GitHub actions"
-          git push origin main
+        uses: actions/checkout@v4
+        with:
+          repo-token: ${{ secrets.MAIN_PROJECT }}
+          working-directory: projects/fortinet-compatible-lists
+          run: |
+            git config --local user.email "actions@github.com"
+            git config --local user.name "GitHub Actions"
+            git add .
+            git commit -m "Automated project initialization with GitHub actions"
+            git push origin main
